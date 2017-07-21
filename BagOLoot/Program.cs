@@ -54,6 +54,9 @@ namespace BagOLoot
                                 break;
                             case 7:
                                 break;
+                            default:
+                                Console.WriteLine("Input in invalid format, please select from given choices only");
+                                break;
                     }
            // } while(choice != 7);
                
