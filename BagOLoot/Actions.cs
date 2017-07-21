@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace BagOLoot
 {
+   
     public class Actions
     {
+        public ChildRegister registry = new ChildRegister();
+        public SantaHelper myhelper = new SantaHelper();
         public void Register()
         {
-            ChildRegister registry = new ChildRegister();
             List<Child> mylist = new List<Child>();
             mylist = registry.GetChildren();
             Console.WriteLine ("Enter child name");
@@ -19,8 +21,6 @@ namespace BagOLoot
 
         public void AssignToy()
         {
-            ChildRegister registry = new ChildRegister();
-            SantaHelper myhelper = new SantaHelper();
             List<Child> mylist = new List<Child>();
             mylist = registry.GetChildren();
             Console.WriteLine ("Assign toy to which child?");
@@ -41,8 +41,6 @@ namespace BagOLoot
 
         public void RemoveToy()
         {
-            ChildRegister registry = new ChildRegister();
-            SantaHelper myhelper = new SantaHelper();
             List<Child> mylist = new List<Child>();
             mylist = registry.GetChildren();
             Console.WriteLine("Remove toy from which child?");
@@ -71,8 +69,6 @@ namespace BagOLoot
 
         public void ReviewToyListOfChild()
         {
-            ChildRegister registry = new ChildRegister();
-            SantaHelper myhelper = new SantaHelper();
             List<Child> mychildlist = new List<Child>();
             List<Toys> mytoylist = new List<Toys>();
             mychildlist = registry.GetChildren();
@@ -97,12 +93,8 @@ namespace BagOLoot
         public void DeliveryComplete()
         {
             Console.WriteLine("Which child has all of their toys delivered?");
-            ChildRegister registry = new ChildRegister();
-            SantaHelper myhelper = new SantaHelper();
             List<Child> mylist = new List<Child>();
-           
             mylist = registry.GetChildren();
-           
             int counter = 1;
             foreach(var child in mylist)
             {
@@ -121,13 +113,10 @@ namespace BagOLoot
         {
             Console.WriteLine("Yuletime Delivery Report");
             Console.WriteLine("%%%%%%%%%%%%%%%%%%%%%%%%");
-            ChildRegister registry = new ChildRegister();
-            SantaHelper myhelper = new SantaHelper();
             List<Child> mychildlist = new List<Child>();
             List<Toys> mytoylist = new List<Toys>();
             mychildlist = registry.GetChildren();
             int childcounter = 1;
-           
             foreach(var child in mychildlist)
             {
                 if(child.Delivered == 1)
