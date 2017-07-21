@@ -5,27 +5,31 @@ using Microsoft.Data.Sqlite;
 
 namespace BagOLoot
 {
-    public class ChildRegister
+    public class SantaHelper
     {
-        private List<Child> _children = new List<Child>();
+        private List<string> _children = new List<string>();
+        private List<Toys> _toys = new List<Toys>();
         private string _connectionString = $"Data Source={Environment.GetEnvironmentVariable("BAGOLOOT_DB")}";
         private SqliteConnection _connection;
 
-        public ChildRegister()
+        public SantaHelper()
         {
             _connection = new SqliteConnection(_connectionString);
         }
 
-        public int AddChild (string child) 
+        public int AddToyToBag(string toy, int child)
         {
+            // Return the new toy id
+            //return 4;
             int _lastId = 0; // Will store the id of the last inserted record
             using (_connection)
             {
                 _connection.Open ();
                 SqliteCommand dbcmd = _connection.CreateCommand ();
-
+                ChildRegister myregister = new ChildRegister();
+                //int childid = 2;
                 // Insert the new child
-                dbcmd.CommandText = $"insert into child values (null, '{child}', 0)";
+                dbcmd.CommandText = $"insert into bag values (null, '{toy}', {child})";
                 Console.WriteLine(dbcmd.CommandText);
                 dbcmd.ExecuteNonQuery ();
 
@@ -48,20 +52,23 @@ namespace BagOLoot
             return _lastId;
         }
 
-        public List<Child> GetChildren ()
+        public List<Toys> GetChildsToys(int child)
         {
+           
             using(_connection)
             {
                 _connection.Open();
+                
                 SqliteCommand dbcmd = _connection.CreateCommand();
                 //slect id and name of every child
-                dbcmd.CommandText = "select id,name,delivered from child";
+                dbcmd.CommandText = $"select toy_id,toy,child_id from bag where child_id={child}";
                 using (SqliteDataReader dr = dbcmd.ExecuteReader())
                 {
                     //read each row of the result set
+                    
                     while(dr.Read())
                     {
-                        _children.Add( new Child(dr.GetInt32(0), dr[1].ToString(), dr.GetInt32(2)) );//add child name to list
+                        _toys.Add( new Toys(dr.GetInt32(0), dr[1].ToString(), dr.GetInt32(2)) );//add toy name to list
                     }
                 }
 
@@ -69,17 +76,32 @@ namespace BagOLoot
                 dbcmd.Dispose();
                 _connection.Close();
             }
-            return _children;
+            return _toys;
+            //return new List<int>() { 4, 6, 7, 8 };
+        }
+
+         public void RemoveToyFromBag (int toyId)
+        {
+             _connection.Open();
+                
+                SqliteCommand dbcmd = _connection.CreateCommand();
+                //slect id and name of every child
+                dbcmd.CommandText = $"delete from bag where toy_id={toyId}";
+                using (SqliteDataReader dr = dbcmd.ExecuteReader())
+                
+                //cleanup
+                dbcmd.Dispose();
+                _connection.Close();
             
         }
 
-      /*  public string GetChild (string name)
+        public bool IsDelivered(int child)
         {
-            var child = _children.SingleOrDefault(c => c == name);
-
-            // Inevitably, two children will have the same name. Then what?
-
-           return child;
-        }*/
+            return true;
+        }
+        public List<int> GetChildrenWithToys()
+        {
+            return new List<int>() { 1, 2, 3, 4, 6 };
+        }
     }
 }

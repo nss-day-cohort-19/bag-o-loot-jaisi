@@ -19,7 +19,7 @@ namespace BagOLoot.Tests
         [InlineData("Kelly")]
         public void AddChildren(string child)
         {
-            var result = _register.AddChild(child);
+            var result = _register.AddChild(child) !=0;
             Assert.True(result);
         }
 

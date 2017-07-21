@@ -10,25 +10,51 @@ namespace BagOLoot
         {
             var db = new DatabaseInterface();
             db.Check();
+            db.CheckBag();
 
-            Console.WriteLine ("WELCOME TO THE BAG O' LOOT SYSTEM");
-            Console.WriteLine ("*********************************");
-            Console.WriteLine ("1. Add a child");
-			Console.Write ("> ");
+            MenuBuilder mymenu = new MenuBuilder();
+           
+            ChildRegister registry = new ChildRegister();
+            int choice = mymenu.ShowMainMenu();
+            List<Child> mylist = new List<Child>();
+            mylist = registry.GetChildren();
+            SantaHelper myhelper = new SantaHelper();
+            Actions myactions = new Actions();
+                switch (choice)
+                {
+                        // Menu option 1: Register a child
+                        case 1:
+                            myactions.Register();
+                            break;
 
-			// Read in the user's choice
-			int choice;
-			Int32.TryParse (Console.ReadLine(), out choice);
+                        // Menu option 2: Assign toy to child
+                        case 2:
+                            myactions.AssignToy();
+                            break;
+                        
+                        //Revoke toy from child
+                        case 3:
+                            myactions.RemoveToy();
+                            break;
+                        
+                        //Review child's toy list
+                        case 4:
+                            myactions.ReviewToyListOfChild();
+                            break;
 
-            if (choice == 1)
-            {
-                Console.WriteLine ("Enter child name");
-                Console.Write ("> ");
-                string childName = Console.ReadLine();
-                ChildRegister registry = new ChildRegister();
-                bool childId = registry.AddChild(childName);
-                Console.WriteLine(childId);
-            }
+                        //Child toy delivery complete
+                        case 5:
+                            myactions.DeliveryComplete();
+                            break;
+                        
+                        //Yuletide delivery report
+                        case 6:
+                            myactions.YuletimeDeliveryReport();
+                            break;
+                }
+               
+
+            
         }
     }
 }

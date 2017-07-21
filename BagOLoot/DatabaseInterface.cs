@@ -53,5 +53,42 @@ namespace BagOLoot
                 _connection.Close ();
             }
         }
+
+        public void CheckBag ()
+        {
+            using (_connection)
+            {
+                _connection.Open();
+                SqliteCommand dbcmd = _connection.CreateCommand ();
+
+                // Query the bag table to see if table is created
+                dbcmd.CommandText = $"select toy_id from bag";
+
+                try
+                {
+                    // Try to run the query. If it throws an exception, create the table
+                    using (SqliteDataReader reader = dbcmd.ExecuteReader())
+                    {
+                        
+                    }
+                    dbcmd.Dispose ();
+                }
+                catch (Microsoft.Data.Sqlite.SqliteException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    if (ex.Message.Contains("no such table"))
+                    {
+                        dbcmd.CommandText = $@"create table bag (
+                            `toy_id`	integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+                            `toy`	varchar(80) not null, 
+                            `child_id` integer 
+                        )";
+                        dbcmd.ExecuteNonQuery ();
+                        dbcmd.Dispose ();
+                    }
+                }
+                _connection.Close ();
+            }
+        }
     }
 }
