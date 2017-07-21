@@ -23,7 +23,7 @@ namespace BagOLoot
             SantaHelper myhelper = new SantaHelper();
             List<Child> mylist = new List<Child>();
             mylist = registry.GetChildren();
-            Console.WriteLine ("Assign toy to which child?");
+            Console.WriteLine ("Assign toy to which child? Enter child name exactly as it appears on the list");
             int counter = 1;
             foreach(var child in mylist)
             {
@@ -55,7 +55,7 @@ namespace BagOLoot
             SantaHelper myhelper = new SantaHelper();
             List<Child> mylist = new List<Child>();
             mylist = registry.GetChildren();
-            Console.WriteLine("Remove toy from which child?");
+            Console.WriteLine("Remove toy from which child? Enter child name exactly as it appears on the list");
             foreach(var child in mylist)
             {
                 Console.WriteLine(child.ChildName);
@@ -96,7 +96,7 @@ namespace BagOLoot
             List<Child> mychildlist = new List<Child>();
             List<Toys> mytoylist = new List<Toys>();
             mychildlist = registry.GetChildren();
-            Console.WriteLine("View Bag o' Loot for which child?");
+            Console.WriteLine("View Bag o' Loot for which child? Enter child name exactly as it appears on the list");
             int counter = 1;
             foreach(var child in mychildlist)
             {
