@@ -23,30 +23,21 @@ namespace BagOLoot
             SantaHelper myhelper = new SantaHelper();
             List<Child> mylist = new List<Child>();
             mylist = registry.GetChildren();
-            Console.WriteLine ("Assign toy to which child? Enter child name exactly as it appears on the list");
+            Console.WriteLine ("Assign toy to which child?");
             int counter = 1;
             foreach(var child in mylist)
             {
                 Console.WriteLine(counter + ". " + child.ChildName);
+                //var newlist = new Tuple<int,int,string>(counter,child.Key,child.Value);
                 counter++;
 
             }
             Console.Write ("> ");
-            string assignedchild = Console.ReadLine();
-            Console.WriteLine("Enter toy to add to " +  assignedchild + "'s Bag o' Loot");
+            int assignedchild = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter toy to add to " +  mylist[assignedchild-1].ChildName + "'s Bag o' Loot");
             Console.Write ("> ");
             string toytobeadded = Console.ReadLine();
-            foreach(var child in mylist)
-            {
-                if (child.ChildName == assignedchild)
-                {
-                    //int assignedid = child.ChildID;
-                    myhelper.AddToyToBag(toytobeadded, child.ChildID); 
-                }
-            }
-
-        
-             
+            myhelper.AddToyToBag(toytobeadded, mylist[assignedchild-1].ChildID);      
         }
 
         public void RemoveToy()
@@ -55,22 +46,19 @@ namespace BagOLoot
             SantaHelper myhelper = new SantaHelper();
             List<Child> mylist = new List<Child>();
             mylist = registry.GetChildren();
-            Console.WriteLine("Remove toy from which child? Enter child name exactly as it appears on the list");
+            Console.WriteLine("Remove toy from which child?");
+            int counter1 = 1;
             foreach(var child in mylist)
             {
-                Console.WriteLine(child.ChildName);
+                Console.WriteLine(counter1 + ". " + child.ChildName);
+                counter1++;
             }
             Console.Write ("> ");
-            string badchild = Console.ReadLine();
-            Console.WriteLine("Choose toy to revoke from " + badchild + "'s Bagaloot");
+            int badchild = int.Parse(Console.ReadLine());
+            Console.WriteLine("Choose toy to revoke from " + mylist[badchild-1].ChildName + "'s Bagaloot");
             List<Toys> listoftoys = new List<Toys>();
-            foreach(var child in mylist)
-            {
-                if(child.ChildName == badchild)
-                {
-                    listoftoys = myhelper.GetChildsToys(child.ChildID);
-                }
-            }
+            listoftoys = myhelper.GetChildsToys(mylist[badchild-1].ChildID);    
+            
             int counter = 1;
             foreach(var toy in listoftoys)
             {
@@ -78,15 +66,8 @@ namespace BagOLoot
                 counter++;
             }
             Console.WriteLine("> ");
-            string toytoremove = Console.ReadLine();
-            foreach(var toy in listoftoys)
-            {
-                if(toy.ToyName == toytoremove)
-                {
-                    myhelper.RemoveToyFromBag(toy.ToyID);
-                }
-            }
-            
+            int toytoremove = int.Parse(Console.ReadLine());
+            myhelper.RemoveToyFromBag(listoftoys[toytoremove-1].ToyID);   
         }
 
         public void ReviewToyListOfChild()
@@ -96,7 +77,7 @@ namespace BagOLoot
             List<Child> mychildlist = new List<Child>();
             List<Toys> mytoylist = new List<Toys>();
             mychildlist = registry.GetChildren();
-            Console.WriteLine("View Bag o' Loot for which child? Enter child name exactly as it appears on the list");
+            Console.WriteLine("View Bag o' Loot for which child?");
             int counter = 1;
             foreach(var child in mychildlist)
             {
@@ -104,21 +85,16 @@ namespace BagOLoot
                 counter++;
             }
             Console.Write ("> ");
-            string goodchild = Console.ReadLine();
-            foreach(var child in  mychildlist)
+            int goodchild = int.Parse(Console.ReadLine());
+            var listoftoys = myhelper.GetChildsToys(mychildlist[goodchild-1].ChildID);
+            int counter1 = 1;
+            foreach(var toy in listoftoys)
             {
-                if(child.ChildName == goodchild)
-                {
-                    var listoftoys = myhelper.GetChildsToys(child.ChildID);
-                    int counter1 = 1;
-                    foreach(var toy in listoftoys)
-                    {
-                        Console.WriteLine(counter1 + ". " + toy.ToyName);
-                        counter1++;
-                    }
-                  
-                }
+                Console.WriteLine(counter1 + ". " + toy.ToyName);
+                counter1++;
             }
+                  
+               
             
             
             

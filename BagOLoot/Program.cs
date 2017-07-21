@@ -51,6 +51,8 @@ namespace BagOLoot
                         case 6:
                             myactions.YuletimeDeliveryReport();
                             break;
+                        case 7:
+                            break;
                 }
                
 
