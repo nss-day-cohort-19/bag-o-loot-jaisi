@@ -97,6 +97,18 @@ namespace BagOLoot
 
         public bool IsDelivered(int child)
         {
+             using(_connection)
+            {
+                _connection.Open();
+                
+                SqliteCommand dbcmd = _connection.CreateCommand();
+                //slect id and name of every child
+                dbcmd.CommandText = $"update child set delivered = 1 where child_id={child}";
+                
+                //cleanup
+                dbcmd.Dispose();
+                _connection.Close();
+            }
             return true;
         }
         public List<int> GetChildrenWithToys()
