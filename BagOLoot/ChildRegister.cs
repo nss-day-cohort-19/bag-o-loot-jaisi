@@ -55,7 +55,7 @@ namespace BagOLoot
                 _connection.Open();
                 SqliteCommand dbcmd = _connection.CreateCommand();
                 //slect id and name of every child
-                dbcmd.CommandText = "select id,name,delivered from child";
+                dbcmd.CommandText = "select child_id,name,delivered from child";
                 using (SqliteDataReader dr = dbcmd.ExecuteReader())
                 {
                     //read each row of the result set

@@ -25,7 +25,7 @@ namespace BagOLoot
                 SqliteCommand dbcmd = _connection.CreateCommand ();
 
                 // Query the child table to see if table is created
-                dbcmd.CommandText = $"select id from child";
+                dbcmd.CommandText = $"select child_id from child";
 
                 try
                 {
@@ -42,7 +42,7 @@ namespace BagOLoot
                     if (ex.Message.Contains("no such table"))
                     {
                         dbcmd.CommandText = $@"create table child (
-                            `id`	integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+                            `child_id`	integer NOT NULL PRIMARY KEY AUTOINCREMENT,
                             `name`	varchar(80) not null, 
                             `delivered` integer not null default 0
                         )";

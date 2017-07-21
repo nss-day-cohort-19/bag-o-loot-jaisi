@@ -110,7 +110,7 @@ namespace BagOLoot
                 
                 SqliteCommand dbcmd = _connection.CreateCommand();
                 //update delivered in child table
-                dbcmd.CommandText = $"update child set delivered = 1 where id={child}";
+                dbcmd.CommandText = $"update child set delivered = 1 where child_id={child}";
                 Console.WriteLine(dbcmd.CommandText);
                 using (SqliteDataReader dr = dbcmd.ExecuteReader())
                 {
