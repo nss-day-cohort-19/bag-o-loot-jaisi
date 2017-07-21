@@ -11,9 +11,7 @@ namespace BagOLoot
             var db = new DatabaseInterface();
             db.Check();
             db.CheckBag();
-
             MenuBuilder mymenu = new MenuBuilder();
-           
             ChildRegister registry = new ChildRegister();
             int choice = mymenu.ShowMainMenu();
             List<Child> mylist = new List<Child>();

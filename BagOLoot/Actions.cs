@@ -28,7 +28,6 @@ namespace BagOLoot
             foreach(var child in mylist)
             {
                 Console.WriteLine(counter + ". " + child.ChildName);
-                //var newlist = new Tuple<int,int,string>(counter,child.Key,child.Value);
                 counter++;
             }
             Console.Write ("> ");
