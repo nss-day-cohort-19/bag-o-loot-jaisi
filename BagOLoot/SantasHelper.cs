@@ -27,8 +27,6 @@ namespace BagOLoot
                 _connection.Open ();
                 SqliteCommand dbcmd = _connection.CreateCommand ();
                 ChildRegister myregister = new ChildRegister();
-                //int childid = 2;
-                // Insert the new child
                 dbcmd.CommandText = $"insert into bag values (null, '{toy}', {child})";
                 Console.WriteLine(dbcmd.CommandText);
                 dbcmd.ExecuteNonQuery ();
@@ -87,7 +85,16 @@ namespace BagOLoot
                 SqliteCommand dbcmd = _connection.CreateCommand();
                 //slect id and name of every child
                 dbcmd.CommandText = $"delete from bag where toy_id={toyId}";
+                Console.WriteLine(dbcmd.CommandText);
                 using (SqliteDataReader dr = dbcmd.ExecuteReader())
+                {
+                    //read each row of the result set
+                    
+                    while(dr.Read())
+                    {
+                    
+                    }
+                }
                 
                 //cleanup
                 dbcmd.Dispose();
@@ -102,9 +109,18 @@ namespace BagOLoot
                 _connection.Open();
                 
                 SqliteCommand dbcmd = _connection.CreateCommand();
-                //slect id and name of every child
-                dbcmd.CommandText = $"update child set delivered = 1 where child_id={child}";
-                
+                //update delivered in child table
+                dbcmd.CommandText = $"update child set delivered = 1 where id={child}";
+                Console.WriteLine(dbcmd.CommandText);
+                using (SqliteDataReader dr = dbcmd.ExecuteReader())
+                {
+                    //read each row of the result set
+                    
+                    while(dr.Read())
+                    {
+                        
+                    }
+                }
                 //cleanup
                 dbcmd.Dispose();
                 _connection.Close();

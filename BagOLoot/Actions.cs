@@ -103,9 +103,9 @@ namespace BagOLoot
 
         public void DeliveryComplete()
         {
-            Console.WriteLine("Which child had all of their toys delivered?");
+            Console.WriteLine("Which child has all of their toys delivered?");
             ChildRegister registry = new ChildRegister();
-       
+            SantaHelper myhelper = new SantaHelper();
             List<Child> mylist = new List<Child>();
            
             mylist = registry.GetChildren();
@@ -114,13 +114,14 @@ namespace BagOLoot
             foreach(var child in mylist)
             {
                 //Console.WriteLine(child.ChildName + " " + child.Delivered);
-                if(child.Delivered == 1)
-                {
+                
                     Console.WriteLine(counter + ". " + child.ChildName);
-
                     counter++;
-                }
+                
             }
+            Console.Write ("> ");
+            int childwithdeliverycomplete = int.Parse(Console.ReadLine());
+            myhelper.IsDelivered(mylist[childwithdeliverycomplete-1].ChildID);
         }
 
         public void YuletimeDeliveryReport()
