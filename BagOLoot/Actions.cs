@@ -30,7 +30,6 @@ namespace BagOLoot
                 Console.WriteLine(counter + ". " + child.ChildName);
                 //var newlist = new Tuple<int,int,string>(counter,child.Key,child.Value);
                 counter++;
-
             }
             Console.Write ("> ");
             int assignedchild = int.Parse(Console.ReadLine());
@@ -93,12 +92,6 @@ namespace BagOLoot
                 Console.WriteLine(counter1 + ". " + toy.ToyName);
                 counter1++;
             }
-                  
-               
-            
-            
-            
-         
         }
 
         public void DeliveryComplete()
@@ -134,7 +127,7 @@ namespace BagOLoot
             List<Toys> mytoylist = new List<Toys>();
             mychildlist = registry.GetChildren();
             int childcounter = 1;
-            int toycounter = 1;
+           
             foreach(var child in mychildlist)
             {
                 if(child.Delivered == 1)
@@ -142,6 +135,7 @@ namespace BagOLoot
                     Console.WriteLine(childcounter + ". " + child.ChildName);
                 
                     mytoylist = myhelper.GetChildsToys(child.ChildID);
+                    int toycounter = 1;
                     foreach(var toy in mytoylist)
                     {
                         if(child.ChildID == toy.ChildID)
